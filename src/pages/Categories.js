@@ -1,20 +1,47 @@
 import React, { Component } from "react";
 import axios from "axios";
-
-axios
-  .get("https://billyapi.com/api/posts/tag?tag=임신초기&randomOn=yes", {
-    headers: {
-      Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQ2NTNmYjU5MDUyYWNjNDMwOGUwNmViNjgwYmU4ZGRhNmU5YWFmYzcwMTRmMTA4ZTdlYWU5NzkyZmMxNmI3NTU5NTg0MTlkNGRkZjU5MzVhIn0.eyJhdWQiOiIzIiwianRpIjoiNDY1M2ZiNTkwNTJhY2M0MzA4ZTA2ZWI2ODBiZThkZGE2ZTlhYWZjNzAxNGYxMDhlN2VhZTk3OTJmYzE2Yjc1NTk1ODQxOWQ0ZGRmNTkzNWEiLCJpYXQiOjE1OTYxNTQ2MjMsIm5iZiI6MTU5NjE1NDYyMywiZXhwIjoxNjI3NjkwNjIzLCJzdWIiOiIxNCIsInNjb3BlcyI6W119.SDsruutJwW1GFjkGwiimhgn2QyO3xcrIPITJvQ7vCMz_Nt16PvWW44UXK5AGvZWc8ye9SxqK7vq8BeiYJkrzL4aCaoScBU5beAQEYq6dDl2BTSvcr0FAS83f7U9ldbDUzLWvjGa04ToyxxxHcF4il7heDbqmd906Pk4u3h8Ai7_HGiTCksW5Vo5Sg3KX8tf8Tt264dlSArBj1eggFL4wTKWYKtdwiejisrYROFoXDzqLuWcYvaWZjqBVZkyRIKBdMpX-leZusONL-6TFFoSvdZlTUYBPKSrnKcqZ86-EAod5bTDo3oHS20BOO544NQGc1axeq2Cq1Ux9CIAOgbCmsipVBwuSM-U-tUJtHKeukEIhdWtHxDj7BmPFshRQokk39amqy7w8FpXHq1A1-OEX6d8vB7k4onKIrArWF5yfOL--EaCLHnsCESgpl4xnpIFzA66Wp3mCbZFdw8cUegRDhOH6KME1bbpLBqnxg-kMHUfZ4XyDdJMZC7r2KSlhu8WNDFPxPiJitN2bXSnb79G3qljuI4qQK0jdFEGGrSH_jVOj_-7-B2MLHwAgdaUCZVZYWE0UnN2blrlhqPJhckBebuWwkh1XbrhPjEImTuSscnw2NXliTlpeIJPcltPuik0sqVPmEmO1Sq8Jm-DJT5d8uPYUjGgKqw-bTrUY5Tp-aac`,
-    },
-  })
-  .then((res) => {
-    console.log(res.data);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+import Content from "../components/Content";
 
 class Categories extends React.Component {
+  state = {};
+  componentDidMount() {
+    console.log(this.props.match.params.id);
+    this._getContents();
+  }
+
+  _renderContents = () => {
+    const contents = this.state.contents.map((content) => {
+      //console.log(content);
+      //console.log(content.title);
+      return (
+        <Content
+          key={content.id}
+          heroimage={content.heroimage}
+          title={content.title}
+          content={content.content}
+          author={content.author.name}
+          //tags={content.tags}
+        />
+      );
+    });
+    return contents;
+  };
+  _getContents = async () => {
+    const contents = await axios.get(
+      `https://billyapi.com/api/posts/tag?tag=${this.props.match.params.id}&randomOn=yes`,
+      {
+        headers: {
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQ2NTNmYjU5MDUyYWNjNDMwOGUwNmViNjgwYmU4ZGRhNmU5YWFmYzcwMTRmMTA4ZTdlYWU5NzkyZmMxNmI3NTU5NTg0MTlkNGRkZjU5MzVhIn0.eyJhdWQiOiIzIiwianRpIjoiNDY1M2ZiNTkwNTJhY2M0MzA4ZTA2ZWI2ODBiZThkZGE2ZTlhYWZjNzAxNGYxMDhlN2VhZTk3OTJmYzE2Yjc1NTk1ODQxOWQ0ZGRmNTkzNWEiLCJpYXQiOjE1OTYxNTQ2MjMsIm5iZiI6MTU5NjE1NDYyMywiZXhwIjoxNjI3NjkwNjIzLCJzdWIiOiIxNCIsInNjb3BlcyI6W119.SDsruutJwW1GFjkGwiimhgn2QyO3xcrIPITJvQ7vCMz_Nt16PvWW44UXK5AGvZWc8ye9SxqK7vq8BeiYJkrzL4aCaoScBU5beAQEYq6dDl2BTSvcr0FAS83f7U9ldbDUzLWvjGa04ToyxxxHcF4il7heDbqmd906Pk4u3h8Ai7_HGiTCksW5Vo5Sg3KX8tf8Tt264dlSArBj1eggFL4wTKWYKtdwiejisrYROFoXDzqLuWcYvaWZjqBVZkyRIKBdMpX-leZusONL-6TFFoSvdZlTUYBPKSrnKcqZ86-EAod5bTDo3oHS20BOO544NQGc1axeq2Cq1Ux9CIAOgbCmsipVBwuSM-U-tUJtHKeukEIhdWtHxDj7BmPFshRQokk39amqy7w8FpXHq1A1-OEX6d8vB7k4onKIrArWF5yfOL--EaCLHnsCESgpl4xnpIFzA66Wp3mCbZFdw8cUegRDhOH6KME1bbpLBqnxg-kMHUfZ4XyDdJMZC7r2KSlhu8WNDFPxPiJitN2bXSnb79G3qljuI4qQK0jdFEGGrSH_jVOj_-7-B2MLHwAgdaUCZVZYWE0UnN2blrlhqPJhckBebuWwkh1XbrhPjEImTuSscnw2NXliTlpeIJPcltPuik0sqVPmEmO1Sq8Jm-DJT5d8uPYUjGgKqw-bTrUY5Tp-aac`,
+        },
+      }
+    );
+    console.log(contents.data.posts.data);
+    this.setState({
+      contents: contents.data.posts.data,
+    });
+    console.log(this.state.contents);
+  };
+
   render() {
     return (
       <div>
@@ -72,51 +99,10 @@ class Categories extends React.Component {
                           오늘은 이런 컨텐츠 어때요?
                         </span>
                       </h4>
-                      <article class="row justify-content-between mb-5 mr-0">
-                        <div
-                          class="col-md-3 bgcover"
-                          style={{
-                            backgroundImage:
-                              "url(" +
-                              "http://via.placeholder.com/800x495" +
-                              ")",
-                          }}
-                        ></div>
-                        <div class="col-md-9 ">
-                          <div class="align-self-center">
-                            <h3 class="entry-title mb-3">
-                              <a href="single.html">
-                                Home Internet Is Becoming a Luxury for the
-                                Wealthy
-                              </a>
-                            </h3>
-                            <div class="entry-excerpt">
-                              <p>
-                                And black on meretriciously regardless well
-                                fearless irksomely as about hideous wistful bat
-                                less oh much and occasional useful rat darn
-                                jeepers far.
-                              </p>
-                            </div>
-                            <div class="entry-meta align-items-center">
-                              <a href="author.html">Dave Gershgorn</a> in{" "}
-                              <a href="archive.html">OneZero</a>
-                              <br />
-                              <span>May 21</span>
-                              <span class="middotDivider"></span>
-                              <span class="readingTime" title="3 min read">
-                                5 min read
-                              </span>
-                              <span class="svgIcon svgIcon--star">
-                                <svg class="svgIcon-use" width="15" height="15">
-                                  <path d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"></path>
-                                </svg>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </article>
-                      <article class="row justify-content-between mb-5 mr-0">
+                      {this.state.contents ? this._renderContents() : "Loading"}
+                      <Content></Content>
+
+                      {/* <article class="row justify-content-between mb-5 mr-0">
                         <div class="col-md-9 ">
                           <div class="align-self-center">
                             <div class="capsSubtle mb-2">
@@ -586,7 +572,7 @@ class Categories extends React.Component {
                               ")",
                           }}
                         ></div>
-                      </article>
+                      </article> */}
                       <ul class="page-numbers heading">
                         <li>
                           <span
@@ -775,38 +761,6 @@ class Categories extends React.Component {
               </div>
               {/* <!--content-widget--> */}
             </main>
-            <footer class="mt-5">
-              <div class="container">
-                <div class="divider"></div>
-                <div class="row">
-                  <div class="col-md-6 copyright text-xs-center">
-                    <p>
-                      Copyright ?? 2019 Merinda inc. Designed by{" "}
-                      <a href="https://alithemes.com">AliThemes.com</a>
-                    </p>
-                  </div>
-                  <div class="col-md-6">
-                    <ul class="social-network inline text-md-right text-sm-center">
-                      <li class="list-inline-item">
-                        <a href="#">
-                          <i class="icon-facebook"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="#">
-                          <i class="icon-twitter"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="#">
-                          <i class="icon-behance"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </footer>
           </div>
           {/* <!--#wrapper--> */}
 

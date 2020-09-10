@@ -63,8 +63,15 @@ class Header extends React.Component {
                 <li>
                   <a href="typography.html">이런 주제가 있어요!</a>
                 </li>
-                <li>
-                  <Link to="/categories">임신초기</Link>
+                <li class="category-item">
+                  <Link
+                    to={{
+                      pathname: "/categories",
+                      state: { category: "임신초기" },
+                    }}
+                  >
+                    임신초기
+                  </Link>
                 </li>
                 <li>
                   <a href="categories.html">임신중기</a>
@@ -155,7 +162,7 @@ class Header extends React.Component {
               <div class="menu-primary">
                 <ul>
                   <li class="current-menu-item">
-                    <a href="index.html">Home</a>
+                    <Link to="/">Home</Link>
                   </li>
                   {/* <li class="menu-item-has-children"><a href="categories.html">Categories</a>
                                     <ul class="sub-menu">
@@ -165,38 +172,20 @@ class Header extends React.Component {
                                     </ul>
                                 </li> */}
                   <li>
-                    <a href="typography.html">이런 주제가 있어요!</a>
+                    <a href="#none">이런 주제가 있어요!</a>
                   </li>
-                  <a href="#">
-                    <Link to="/categories">임신초기</Link>
-                  </a>
-                  <li>
-                    <a href="categories.html">임신중기</a>
-                  </li>
-                  <li>
-                    <a href="categories.html">임신후기</a>
-                  </li>
-                  <li>
-                    <a href="contact.html">임신증상</a>
-                  </li>
-                  <li>
-                    <a href="contact.html">건강</a>
-                  </li>
-                  <li>
-                    <a href="contact.html">생활</a>
-                  </li>
-                  <li>
-                    <a href="contact.html">음식</a>
-                  </li>
-                  <li>
-                    <a href="contact.html">아기</a>
-                  </li>
-                  <li>
-                    <a href="contact.html">육아</a>
-                  </li>
-                  <li>
-                    <a href="contact.html">출산준비물</a>
-                  </li>
+                  <Link to="/categories/임신초기">임신초기</Link>
+                  {/* <a href={"/categories/임신초기"}>임신초기</a> */}
+
+                  <Link to="/categories/임신중기">임신중기</Link>
+                  <Link to="/categories/임신후기">임신후기</Link>
+                  <Link to="/categories/임신증상">임신증상</Link>
+                  <Link to="/categories/건강">건강</Link>
+                  <Link to="/categories/생활">생활</Link>
+                  <Link to="/categories/음식">음식</Link>
+                  <Link to="/categories/아기">아기</Link>
+                  <Link to="/categories/육아">육아</Link>
+                  <Link to="/categories/출산준비물">출산준비물</Link>
                   {/* <li class="menu-item-has-children">
                     <a href="#">More...</a>
                     <ul class="sub-menu">
