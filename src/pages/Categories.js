@@ -1,18 +1,21 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Content from "../components/Content";
+import { Link } from "react-router-dom";
 
 class Categories extends React.Component {
-  state = {};
+  state = {
+    contents: [],
+  };
   componentDidMount() {
-    console.log(this.props.match.params.id);
+    // console.log(this.props.match.params.id);
     this._getContents();
   }
 
   _renderContents = () => {
     const contents = this.state.contents.map((content) => {
-      //console.log(content);
-      //console.log(content.title);
+      console.log(content);
+      // console.log(content.id);
       return (
         <Content
           key={content.id}
@@ -20,7 +23,7 @@ class Categories extends React.Component {
           title={content.title}
           content={content.content}
           author={content.author.name}
-          //tags={content.tags}
+          tags={content.tags}
         />
       );
     });
@@ -35,14 +38,15 @@ class Categories extends React.Component {
         },
       }
     );
-    console.log(contents.data.posts.data);
+    // console.log(contents.data.posts.data);
     this.setState({
       contents: contents.data.posts.data,
     });
-    console.log(this.state.contents);
+    // console.log(this.state.contents);
   };
 
   render() {
+    const { contents } = this.state;
     return (
       <div>
         <div class="archive">
@@ -100,7 +104,22 @@ class Categories extends React.Component {
                         </span>
                       </h4>
                       {this.state.contents ? this._renderContents() : "Loading"}
-                      <Content></Content>
+
+                      {/* <Content></Content> */}
+                      <ul>
+                        {contents.map((content) => {
+                          return (
+                            <Content
+                              key={content.id}
+                              heroimage={content.heroimage}
+                              title={content.title}
+                              content={content.content}
+                              author={content.author.name}
+                              tags={content.tags}
+                            />
+                          );
+                        })}
+                      </ul>
 
                       {/* <article class="row justify-content-between mb-5 mr-0">
                         <div class="col-md-9 ">

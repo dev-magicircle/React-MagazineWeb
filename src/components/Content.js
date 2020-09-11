@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 import "./Content.css";
+import axios from "axios";
 import LinesEllipsis from "react-lines-ellipsis";
+import { Link } from "react-router-dom";
 
 class Content extends React.Component {
+  componentDidMount() {
+    console.log(this.props.tags);
+    console.log(this.props);
+  }
   render() {
     return (
       <article class="row justify-content-between mb-5 mr-0">
@@ -15,7 +21,9 @@ class Content extends React.Component {
         <div class="col-md-9 ">
           <div class="align-self-center">
             <h3 class="entry-title mb-3">
-              <a href="single.html">{this.props.title}</a>
+              <Link to={`/categories/${this.props.key}`}>
+                <a href="#none">{this.props.title}</a>
+              </Link>
             </h3>
             <div class="entry-excerpt">
               {/* style={{ display: '-webkit-box',word-wrap:'break-word' }}>{this.props.content}</p> */}
@@ -28,9 +36,14 @@ class Content extends React.Component {
               />
             </div>
             <div class="entry-meta align-items-center">
-              <a href="#">{this.props.author}</a>
+              <a href="#none">{this.props.author}</a>
               <br />
-              {/*<span>{this.props.tags}</span>*/}
+              {/* <ul>
+                {this.props.tags.map((s) => {
+                   
+                  return <li>#{s.name}</li>;
+                })}
+              </ul> */}
             </div>
           </div>
         </div>
