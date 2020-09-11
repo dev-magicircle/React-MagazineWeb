@@ -9,7 +9,15 @@ class Categories extends React.Component {
   };
   componentDidMount() {
     // console.log(this.props.match.params.id);
+    this.unlisten = this.props.history.listen((location, action) => {
+      console.log("on route change");
+      this._getContents();
+    });
     this._getContents();
+  }
+  componentWillUnmount() {
+    console.log("#### component will unmount");
+    this.unlisten();
   }
 
   _renderContents = () => {
@@ -17,14 +25,17 @@ class Categories extends React.Component {
       // console.log(content);
       // console.log(content.id);
       return (
-        <Content
-          key={content.id}
-          heroimage={content.heroimage}
-          title={content.title}
-          content={content.content}
-          author={content.author.name}
-          tags={content.tags}
-        />
+        <a href="https://billyapi.com/post/353">
+          <Content
+            id={content.id}
+            key={content.id}
+            heroimage={content.heroimage}
+            title={content.title}
+            content={content.content}
+            author={content.author.name}
+            tags={content.tags}
+          />
+        </a>
       );
     });
     return contents;

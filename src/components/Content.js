@@ -21,14 +21,14 @@ class Content extends React.Component {
         <div class="col-md-9 ">
           <div class="align-self-center">
             <h3 class="entry-title mb-3">
-              <Link to={`/categories/posts/${this.props.id}`}>
-                <a href="#none">{this.props.title}</a>
-              </Link>
+              <a href="#none">{this.props.title}</a>
             </h3>
             <div class="entry-excerpt">
               {/* style={{ display: '-webkit-box',word-wrap:'break-word' }}>{this.props.content}</p> */}
               <LinesEllipsis
-                text={this.props.content}
+                text={this.props.content
+                  .replaceAll(/(<([^>]+)>)/gi, "")
+                  .replaceAll(/&nbsp;/gi, "")}
                 maxLine="3"
                 ellipsis="..."
                 trimRight
