@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 
 class Content extends React.Component {
   componentDidMount() {
-    console.log(this.props.tags);
-    console.log(this.props);
+    console.log(this.props.id);
+    // console.log(this.props);
   }
   render() {
     return (
@@ -21,7 +21,7 @@ class Content extends React.Component {
         <div class="col-md-9 ">
           <div class="align-self-center">
             <h3 class="entry-title mb-3">
-              <Link to={`/categories/${this.props.key}`}>
+              <Link to={`/categories/posts/${this.props.id}`}>
                 <a href="#none">{this.props.title}</a>
               </Link>
             </h3>

@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Categories from "./pages/Categories";
+import Post from "./pages/Post";
 import Search from "./pages/Search";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -16,6 +17,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path={"/categories/:id"} component={Categories} />
+          <Route path={"/categories/posts/:id"} component={Post} />
           <Route path="/search" component={Search} />
         </Switch>
         <Footer></Footer>

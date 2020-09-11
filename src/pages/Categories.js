@@ -14,7 +14,7 @@ class Categories extends React.Component {
 
   _renderContents = () => {
     const contents = this.state.contents.map((content) => {
-      console.log(content);
+      // console.log(content);
       // console.log(content.id);
       return (
         <Content
@@ -104,13 +104,13 @@ class Categories extends React.Component {
                         </span>
                       </h4>
                       {this.state.contents ? this._renderContents() : "Loading"}
-
                       {/* <Content></Content> */}
-                      <ul>
+                      {/* <ul>
                         {contents.map((content) => {
                           return (
                             <Content
                               key={content.id}
+                              id={content.id}
                               heroimage={content.heroimage}
                               title={content.title}
                               content={content.content}
@@ -119,7 +119,7 @@ class Categories extends React.Component {
                             />
                           );
                         })}
-                      </ul>
+                      </ul> */}
 
                       {/* <article class="row justify-content-between mb-5 mr-0">
                         <div class="col-md-9 ">
