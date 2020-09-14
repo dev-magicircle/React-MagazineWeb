@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
+import "../custom.css";
+import "../plugins/froala/froala_editor.pkgd.min.css";
+import "../plugins/froala/froala_style.min.css";
 class Post extends React.Component {
   state = {
     posts: [],
@@ -9,8 +12,41 @@ class Post extends React.Component {
   }
 
   _renderContents = () => {
-    console.log(this.state.posts);
-    return this.state.posts;
+    return (
+      <main id="content" class="billy-post">
+        <div class="container p-zero">
+          <figure class="image zoom mb-5 hero-square">
+            <img
+              src={JSON.stringify(this.state.posts.heroImage)}
+              alt="post-title"
+              style={{ width: "100%" }}
+            />
+          </figure>
+        </div>
+        <div class="container">
+          <div class="entry-header">
+            <div class="mb-5">
+              <h1 class="entry-title m_b_2rem">
+                {JSON.stringify(this.state.posts.title)}
+              </h1>{" "}
+              <div class="entry-meta align-items-center">
+                <a class="author-avatar">
+                  <img src={this.state.posts.heroimage} alt="" />
+                </a>{" "}
+                {/* /<a>{JSON.stringify(this.state.posts.author)}</a> <br />{" "}*/}
+                {/*<span title="3 min read" class="readingTime">
+                  591 Views
+    </span>*/}
+              </div>
+            </div>
+          </div>
+          <article
+            class="entry-wraper fr-element fr-view"
+            dangerouslySetInnerHTML={{ __html: this.state.posts.content }}
+          ></article>
+        </div>
+      </main>
+    );
   };
   _getContents = async () => {
     const posts = await axios.get(
@@ -21,16 +57,19 @@ class Post extends React.Component {
         },
       }
     );
-    console.log(posts.data.content);
-    console.log(this.props.match.params.id);
-    // console.log(contents.data.posts.data);
+
     this.setState({
-      posts: posts.data.content,
+      posts: posts.data,
     });
+    console.log(this.state.posts);
   };
 
   render() {
-    return <div>{this.state.posts ? this._renderContents() : "Loading"}</div>;
+    return (
+      <div id="wrapper">
+        {this.state.posts ? this._renderContents() : "Loading"}
+      </div>
+    );
   }
 }
 export default Post;

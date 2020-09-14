@@ -855,10 +855,10 @@ class Home extends React.Component {
         </div>
         {/* <!--#wrapper--> */}
 
-        <a href="#" class="back-to-top heading">
+        {/* <a href="#" class="back-to-top heading">
           <i class="icon-left-open-big"></i>
           <span class="d-lg-inline d-md-none">Top</span>
-        </a>
+        </a> */}
       </div>
     );
   }

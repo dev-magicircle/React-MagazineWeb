@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 class Content extends React.Component {
   componentDidMount() {
-    console.log(this.props.id);
+    //console.log(this.props.id);
     // console.log(this.props);
   }
   render() {

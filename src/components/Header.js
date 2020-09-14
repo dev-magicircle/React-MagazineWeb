@@ -33,9 +33,9 @@ class Header extends React.Component {
           <div class="mobi-menu">
             <div class="mobi-menu__logo">
               <h1 class="logo navbar-brand">
-                <a href="index.html" class="logo">
-                  <img src="assets/images/logo.png" alt="" height="50px" />
-                </a>
+                <Link to="/">
+                  <img src="assets/images/logo.png" alt="" height="30px" />
+                </Link>
               </h1>
             </div>
             <form action="#" method="get" class="menu-search-form d-lg-flex">

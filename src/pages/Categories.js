@@ -9,63 +9,65 @@ class Categories extends React.Component {
     contents: [],
   };
   componentDidMount() {
-    // console.log(this.props.match.params.id);
-    // this.unlisten = this.props.history.listen((location, action) => {
-    //   console.log("on route change");
-    //   this._getContents();
-    // });
+    //console.log(this.props.match.params.id);
+    this.unlisten = this.props.history.listen((location, action) => {
+      console.log("on route change");
+      this._getContents();
+    });
     this._getContents();
   }
-  // componentWillUnmount() {
-  //   console.log("#### component will unmount");
-  //   this.unlisten();
-  // }
+  //componentWillUnmount() {
+  //  console.log("#### component will unmount");
+  //  this.unlisten();
+  //}
   _renderMainContents = () => {
     const contents = this.state.contents.slice(0, 1).map((content) => {
-      console.log(content.tags);
+      //console.log(content.tags);
       return (
-        <article class="first mb-3">
-          <figure>
-            <a href="single.html">
-              <img src={content.heroimage} alt="post-title" />
-            </a>
-          </figure>
-          <h1 class="entry-title mb-3">
-            <a href="single.html">{content.title}</a>
-          </h1>
-          <div class="entry-excerpt">
-            <p>
-              <LinesEllipsis
-                text={content.content
-                  .replaceAll(/(<([^>]+)>)/gi, "")
-                  .replaceAll(/&nbsp;/gi, "")
-                  .replaceAll(/&lsquo;/gi, "")
-                  .replaceAll(/&amp;/gi, "")
-                  .replaceAll(/&rsquo;/gi, "")
-                  .replaceAll(/&zwj;/gi, "")
-                  .replaceAll(/&#39;/gi, "")
-                  .replaceAll(/&middot;/gi, "")}
-                maxLine="3"
-                ellipsis="..."
-                trimRight
-                basedOn="letters"
-              />
-            </p>
-          </div>
-          <div class="entry-meta align-items-center">
-            <a class="author-avatar" href="#">
-              <img src={content.author.photo} alt="" />
-            </a>
-            <a href="author.html">{content.author.name}</a>
-            <br />
-
-            <div>
-              {content.tags.slice(0, 5).map((content) => {
-                return <span>#{content.name} </span>;
-              })}
+        <Link to={`/posts/${content.id}`}>
+          <article class="first mb-3">
+            <figure>
+              <a href="single.html">
+                <img src={content.heroimage} alt="post-title" />
+              </a>
+            </figure>
+            <h1 class="entry-title mb-3">
+              <a href="single.html">{content.title}</a>
+            </h1>
+            <div class="entry-excerpt">
+              <p>
+                <LinesEllipsis
+                  text={content.content
+                    .replaceAll(/(<([^>]+)>)/gi, "")
+                    .replaceAll(/&nbsp;/gi, "")
+                    .replaceAll(/&lsquo;/gi, "")
+                    .replaceAll(/&amp;/gi, "")
+                    .replaceAll(/&rsquo;/gi, "")
+                    .replaceAll(/&zwj;/gi, "")
+                    .replaceAll(/&#39;/gi, "")
+                    .replaceAll(/&middot;/gi, "")}
+                  maxLine="3"
+                  ellipsis="..."
+                  trimRight
+                  basedOn="letters"
+                />
+              </p>
             </div>
-          </div>
-        </article>
+            <div class="entry-meta align-items-center">
+              <a class="author-avatar" href="#">
+                <img src={content.author.photo} alt="" />
+              </a>
+              <a href="author.html">{content.author.name}</a>
+              <br />
+
+              <div>
+                {content.tags.slice(0, 5).map((content) => {
+                  return <span>#{content.name} </span>;
+                })}
+              </div>
+            </div>
+          </article>
+        </Link>
       );
     });
     return contents;
@@ -73,16 +75,17 @@ class Categories extends React.Component {
   _renderContents = () => {
     const contents = this.state.contents.slice(1, 11).map((content) => {
       return (
-        // <a href="https://billyapi.com/post/353"></a>
-        <Content
-          id={content.id}
-          key={content.id}
-          heroimage={content.heroimage}
-          title={content.title}
-          content={content.content}
-          author={content.author.name}
-          tags={content.tags}
-        ></Content>
+        <Link to={`/posts/${content.id}`}>
+          <Content
+            id={content.id}
+            key={content.id}
+            heroimage={content.heroimage}
+            title={content.title}
+            content={content.content}
+            author={content.author.name}
+            tags={content.tags}
+          ></Content>
+        </Link>
       );
     });
     return contents;
@@ -119,6 +122,7 @@ class Categories extends React.Component {
                       <h4 class="spanborder">
                         <span>Editors' Pick!</span>
                       </h4>
+
                       {this.state.contents
                         ? this._renderMainContents()
                         : "Loading"}
