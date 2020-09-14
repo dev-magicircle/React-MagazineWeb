@@ -64,41 +64,34 @@ class Header extends React.Component {
                   <a href="typography.html">이런 주제가 있어요!</a>
                 </li>
                 <li class="category-item">
-                  <Link
-                    to={{
-                      pathname: "/categories",
-                      state: { category: "임신초기" },
-                    }}
-                  >
-                    임신초기
-                  </Link>
+                  <Link to="/categories/임신초기">임신초기</Link>
                 </li>
                 <li>
-                  <a href="categories.html">임신중기</a>
+                  <Link to="/categories/임신중기">임신중기</Link>
                 </li>
                 <li>
-                  <a href="categories.html">임신후기</a>
+                  <Link to="/categories/임신후기">임신후기</Link>
                 </li>
                 <li>
-                  <a href="contact.html">임신증상</a>
+                  <Link to="/categories/임신증상">임신증상</Link>
                 </li>
                 <li>
-                  <a href="contact.html">건강</a>
+                  <Link to="/categories/건강">건강</Link>
                 </li>
                 <li>
-                  <a href="contact.html">생활</a>
+                  <Link to="/categories/생활">생활</Link>
                 </li>
                 <li>
-                  <a href="contact.html">음식</a>
+                  <Link to="/categories/음식">음식</Link>
                 </li>
                 <li>
-                  <a href="contact.html">아기</a>
+                  <Link to="/categories/아기">아기</Link>
                 </li>
                 <li>
-                  <a href="contact.html">육아</a>
+                  <Link to="/categories/육아">육아</Link>
                 </li>
                 <li>
-                  <a href="contact.html">출산준비물</a>
+                  <Link to="/categories/출산준비물">출산준비물</Link>
                 </li>
 
                 {/* <li><a href="typography.html">이런 주제가 있어요!</a></li>
@@ -175,8 +168,6 @@ class Header extends React.Component {
                     <a href="#none">이런 주제가 있어요!</a>
                   </li>
                   <Link to="/categories/임신초기">임신초기</Link>
-                  {/* <a href={"/categories/임신초기"}>임신초기</a> */}
-
                   <Link to="/categories/임신중기">임신중기</Link>
                   <Link to="/categories/임신후기">임신후기</Link>
                   <Link to="/categories/임신증상">임신증상</Link>

@@ -28,8 +28,14 @@ class Content extends React.Component {
               <LinesEllipsis
                 text={this.props.content
                   .replaceAll(/(<([^>]+)>)/gi, "")
-                  .replaceAll(/&nbsp;/gi, "")}
-                maxLine="3"
+                  .replaceAll(/&nbsp;/gi, "")
+                  .replaceAll(/&lsquo;/gi, "")
+                  .replaceAll(/&amp;/gi, "")
+                  .replaceAll(/&rsquo;/gi, "")
+                  .replaceAll(/&zwj;/gi, "")
+                  .replaceAll(/&#39;/gi, "")
+                  .replaceAll(/&middot;/gi, "")}
+                maxLine="2"
                 ellipsis="..."
                 trimRight
                 basedOn="letters"
@@ -38,12 +44,11 @@ class Content extends React.Component {
             <div class="entry-meta align-items-center">
               <a href="#none">{this.props.author}</a>
               <br />
-              {/* <ul>
-                {this.props.tags.map((s) => {
-                   
-                  return <li>#{s.name}</li>;
+              <div>
+                {this.props.tags.slice(0, 5).map((content) => {
+                  return <span>#{content.name} </span>;
                 })}
-              </ul> */}
+              </div>
             </div>
           </div>
         </div>

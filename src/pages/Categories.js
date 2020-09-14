@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Content from "../components/Content";
 import { Link } from "react-router-dom";
+import LinesEllipsis from "react-lines-ellipsis";
 
 class Categories extends React.Component {
   state = {
@@ -9,33 +10,79 @@ class Categories extends React.Component {
   };
   componentDidMount() {
     // console.log(this.props.match.params.id);
-    this.unlisten = this.props.history.listen((location, action) => {
-      console.log("on route change");
-      this._getContents();
-    });
+    // this.unlisten = this.props.history.listen((location, action) => {
+    //   console.log("on route change");
+    //   this._getContents();
+    // });
     this._getContents();
   }
-  componentWillUnmount() {
-    console.log("#### component will unmount");
-    this.unlisten();
-  }
-
-  _renderContents = () => {
-    const contents = this.state.contents.map((content) => {
-      // console.log(content);
-      // console.log(content.id);
+  // componentWillUnmount() {
+  //   console.log("#### component will unmount");
+  //   this.unlisten();
+  // }
+  _renderMainContents = () => {
+    const contents = this.state.contents.slice(0, 1).map((content) => {
+      console.log(content.tags);
       return (
-        <a href="https://billyapi.com/post/353">
-          <Content
-            id={content.id}
-            key={content.id}
-            heroimage={content.heroimage}
-            title={content.title}
-            content={content.content}
-            author={content.author.name}
-            tags={content.tags}
-          />
-        </a>
+        <article class="first mb-3">
+          <figure>
+            <a href="single.html">
+              <img src={content.heroimage} alt="post-title" />
+            </a>
+          </figure>
+          <h1 class="entry-title mb-3">
+            <a href="single.html">{content.title}</a>
+          </h1>
+          <div class="entry-excerpt">
+            <p>
+              <LinesEllipsis
+                text={content.content
+                  .replaceAll(/(<([^>]+)>)/gi, "")
+                  .replaceAll(/&nbsp;/gi, "")
+                  .replaceAll(/&lsquo;/gi, "")
+                  .replaceAll(/&amp;/gi, "")
+                  .replaceAll(/&rsquo;/gi, "")
+                  .replaceAll(/&zwj;/gi, "")
+                  .replaceAll(/&#39;/gi, "")
+                  .replaceAll(/&middot;/gi, "")}
+                maxLine="3"
+                ellipsis="..."
+                trimRight
+                basedOn="letters"
+              />
+            </p>
+          </div>
+          <div class="entry-meta align-items-center">
+            <a class="author-avatar" href="#">
+              <img src={content.author.photo} alt="" />
+            </a>
+            <a href="author.html">{content.author.name}</a>
+            <br />
+
+            <div>
+              {content.tags.slice(0, 5).map((content) => {
+                return <span>#{content.name} </span>;
+              })}
+            </div>
+          </div>
+        </article>
+      );
+    });
+    return contents;
+  };
+  _renderContents = () => {
+    const contents = this.state.contents.slice(1, 11).map((content) => {
+      return (
+        // <a href="https://billyapi.com/post/353"></a>
+        <Content
+          id={content.id}
+          key={content.id}
+          heroimage={content.heroimage}
+          title={content.title}
+          content={content.content}
+          author={content.author.name}
+          tags={content.tags}
+        ></Content>
       );
     });
     return contents;
@@ -53,7 +100,7 @@ class Categories extends React.Component {
     this.setState({
       contents: contents.data.posts.data,
     });
-    // console.log(this.state.contents);
+    // console.log(this.state.contents[0].tags);
   };
 
   render() {
@@ -72,7 +119,10 @@ class Categories extends React.Component {
                       <h4 class="spanborder">
                         <span>Editors' Pick!</span>
                       </h4>
-                      <article class="first mb-3">
+                      {this.state.contents
+                        ? this._renderMainContents()
+                        : "Loading"}
+                      {/* <article class="first mb-3">
                         <figure>
                           <a href="single.html">
                             <img
@@ -82,9 +132,7 @@ class Categories extends React.Component {
                           </a>
                         </figure>
                         <h1 class="entry-title mb-3">
-                          <a href="single.html">
-                            Home Internet Is Becoming a Luxury for the Wealthy
-                          </a>
+                          <a href="single.html"></a>
                         </h1>
                         <div class="entry-excerpt">
                           <p>
@@ -105,7 +153,7 @@ class Categories extends React.Component {
                           <br />
                           <span>#태그1 #태그2 #태그3 #태그4</span>
                         </div>
-                      </article>
+                      </article> */}
                       {/* <div class="divider"></div> */}
                       <h4 class="spanborder">
                         <span>
@@ -603,7 +651,7 @@ class Categories extends React.Component {
                           }}
                         ></div>
                       </article> */}
-                      <ul class="page-numbers heading">
+                      {/* <ul class="page-numbers heading">
                         <li>
                           <span
                             aria-current="page"
@@ -647,10 +695,10 @@ class Categories extends React.Component {
                             <i class="icon-right-open-big"></i>
                           </a>
                         </li>
-                      </ul>
+                      </ul> */}
                     </div>
                     {/* <!--col-md-8--> */}
-                    <div class="col-md-4 pl-md-5 sticky-sidebar">
+                    {/* <div class="col-md-4 pl-md-5 sticky-sidebar">
                       <div class="sidebar-widget latest-tpl-4">
                         <h5 class="spanborder widget-title">
                           <span>Popular in Culture</span>
@@ -772,14 +820,14 @@ class Categories extends React.Component {
                           </li>
                         </ol>
                       </div>
-                    </div>
+                    </div> */}
                     {/* <!--col-md-4--> */}
                   </div>
                 </div>
                 {/* <!--content-widget--> */}
               </div>
 
-              <div class="content-widget">
+              {/* <div class="content-widget">
                 <div class="container">
                   <div class="sidebar-widget ads">
                     <a href="#">
@@ -788,16 +836,16 @@ class Categories extends React.Component {
                   </div>
                   <div class="hr"></div>
                 </div>
-              </div>
+              </div> */}
               {/* <!--content-widget--> */}
             </main>
           </div>
           {/* <!--#wrapper--> */}
 
-          <a href="#" class="back-to-top heading">
+          {/* <a href="#" class="back-to-top heading">
             <i class="icon-left-open-big"></i>
             <span class="d-lg-inline d-md-none">Top</span>
-          </a>
+          </a> */}
         </div>
       </div>
     );
